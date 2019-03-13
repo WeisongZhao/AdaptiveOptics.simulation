@@ -23,7 +23,7 @@ a_parameter=[0.125682544377515,0.905791937075619,-0.126986816293506,-0.913375856
 a_parameter(1)=0;
 a2=a_parameter.^2;
 suma=sqrt(sum(a2));
-%% No aberration£¬chushi: image M_clear: var 
+%% No aberration£¬chushi: image M_clear: var
 PSF=PSF_with_Aberration(a);
 initial=conv2(image1,PSF,'same');
 initial=abs(initial.^2);
@@ -33,46 +33,46 @@ M_clear1=aberration(initial);
 imwrite(initial/max(max(initial)),'AO\4N+1-noise\NoAberration+noise.bmp')
 clear IP IP1 a
 for iteration=1:iterations
-%% Circle%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-iteration
-noise=randn(a01,b01)*40000000;
-bias=zeros(1,19);
-%% b
-a=a_parameter;
-a=a+bias;
-PSF=PSF_with_Aberration(a);
-Total=conv2(image1,PSF,'same');
-Total=abs(Total.^2);
-% ZONG=255*ZONG./max(max(ZONG));
-Total=Total+noise;
-Total=255*Total./max(max(Total));
-M21=aberration(Total);
-%% -b
-a=a_parameter;
-a=a-bias;
-PSF=PSF_with_Aberration(a);
-Total1=conv2(image1,PSF,'same');
-Total1=abs(Total1.^2);
-% ZONG1=255*ZONG1./max(max(ZONG1));
-Total1=Total1+noise;
-Total1=255*Total1./max(max(Total1));
-M11=aberration(Total1);
-%% Save Mat
-a_parameter=a_parameter+bias*rate*(M21-M11);
-a=a_parameter;
-PSF=PSF_with_Aberration(a);
-Total2=conv2(image1,PSF,'same');
-Total2=abs(Total2.^2);
-Total2=255*Total2./max(max(Total2));
-ii=int2str(iteration);
-imwrite(Total2/max(max(Total2)),['AO\4N+1-noise\',ii,'iter.bmp']);
-M_result=aberration(Total2)   
-Result(1,iteration)=M21;
-Result(2,iteration)=M11;
-Result(3,iteration)=M_result;
-Result(iteration+1,1:19)=a_parameter;
-if M_result>=71
-    break
+    %% Circle%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    iteration
+    noise=randn(a01,b01)*40000000;
+    bias=zeros(1,19);
+    %% b
+    a=a_parameter;
+    a=a+bias;
+    PSF=PSF_with_Aberration(a);
+    Total=conv2(image1,PSF,'same');
+    Total=abs(Total.^2);
+    % ZONG=255*ZONG./max(max(ZONG));
+    Total=Total+noise;
+    Total=255*Total./max(max(Total));
+    M21=aberration(Total);
+    %% -b
+    a=a_parameter;
+    a=a-bias;
+    PSF=PSF_with_Aberration(a);
+    Total1=conv2(image1,PSF,'same');
+    Total1=abs(Total1.^2);
+    % ZONG1=255*ZONG1./max(max(ZONG1));
+    Total1=Total1+noise;
+    Total1=255*Total1./max(max(Total1));
+    M11=aberration(Total1);
+    %% Save Mat
+    a_parameter=a_parameter+bias*rate*(M21-M11);
+    a=a_parameter;
+    PSF=PSF_with_Aberration(a);
+    Total2=conv2(image1,PSF,'same');
+    Total2=abs(Total2.^2);
+    Total2=255*Total2./max(max(Total2));
+    ii=int2str(iteration);
+    imwrite(Total2/max(max(Total2)),['AO\4N+1-noise\',ii,'iter.bmp']);
+    M_result=aberration(Total2)
+    Result(1,iteration)=M21;
+    Result(2,iteration)=M11;
+    Result(3,iteration)=M_result;
+    Result(iteration+1,1:19)=a_parameter;
+    if M_result>=71
+        break
+    end
 end
-end
-save AO\4N+1-noise\Result.mat Result*  
+save AO\4N+1-noise\Result.mat Result*
