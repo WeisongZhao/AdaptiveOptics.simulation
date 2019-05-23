@@ -10,10 +10,8 @@ N=5;
 % Zero=1;
 bias=0.55;
 lamda=532*10^-9;
-sin1=0.4;
-sin2=sin(asin(sin1)/2)^2;
-z=0;
-u=8*pi*z*sin1/lamda;
+NA=0.4;
+pixel=65*10^-6/20;
 Iimage=imread('1.jpg');
 image1=double(Iimage(:,:,1));
 [a00,b00]=size(image1);
@@ -25,7 +23,7 @@ a_parameter=[0.125682544377515,0.905791937075619,-0.126986816293506,-0.913375856
 a_parameter(1)=0;
 %% No aberration£¬chushi: image M_clear: var
 a=zeros(1,19);
-PSF=PSF_with_Aberration(a);
+PSF=PSF_with_Aberration2(pixel,lamda,NA,8,a);
 Original=conv2(image1,PSF,'same');
 Original=abs(Original.^2);
 Original=Original+noise;
@@ -37,7 +35,7 @@ M_clear4=aberration4(Original);
 imwrite(Original/max(max(Original)),'AO\4N+1-noise\Noaberration+noise.bmp')
 %% With initial aberration, ZONG0, M0
 a=a_parameter;
-PSF=PSF_with_Aberration(a);
+PSF=PSF_with_Aberration2(pixel,lamda,NA,8,a);
 Total0=conv2(image1,PSF,'same');
 Total0=abs(Total0.^2);
 Total0=Total0+noise;
@@ -59,7 +57,7 @@ for pp=1:1:19
     end
     %% b
     a(pp)=a(pp)+bias;
-    PSF=PSF_with_Aberration(a);
+    PSF=PSF_with_Aberration2(pixel,lamda,NA,8,a);
     Total=conv2(image1,PSF,'same');
     Total=abs(Total.^2);
     Total=Total+noise;
@@ -77,7 +75,7 @@ for pp=1:1:19
     %% -b
     a=a_parameter;
     a(pp)=a(pp)-bias;
-    PSF=PSF_with_Aberration(a);
+    PSF=PSF_with_Aberration2(pixel,lamda,NA,8,a);
     ZONG1=conv2(image1,PSF,'same');
     ZONG1=abs(ZONG1.^2);
     ZONG1=ZONG1+noise;
@@ -96,7 +94,7 @@ for pp=1:1:19
         %% -2/b
         a=a_parameter;
         a(pp)=a(pp)-bias/2;
-        PSF=PSF_with_Aberration(a);
+        PSF=PSF_with_Aberration2(pixel,lamda,NA,8,a);
         ZONG10=conv2(image1,PSF,'same');
         ZONG10=abs(ZONG10.^2);
         ZONG10=ZONG10+noise;
@@ -113,7 +111,7 @@ for pp=1:1:19
         %% 2/b
         a=a_parameter;
         a(pp)=a(pp)+bias/2;
-        PSF=PSF_with_Aberration(a);
+        PSF=PSF_with_Aberration2(pixel,lamda,NA,8,a);
         Total2=conv2(image1,PSF,'same');
         Total2=abs(Total2.^2);
         Total2=Total2+noise;
@@ -260,7 +258,7 @@ for l=1:4
         a=a-C(l,:);
     end
     a(1)=0;
-    PSF=PSF_with_Aberration(a);
+    PSF=PSF_with_Aberration2(pixel,lamda,NA,8,a);
     Correction=conv2(image1,PSF,'same');
     Correction=abs(Correction.^2);
     Correction=255*Correction./max(max(Correction));
@@ -296,7 +294,7 @@ for l=1:4
         a=a+C(l,:);
     end
     a(1)=0;
-    PSF=PSF_with_Aberration(a);
+    PSF=PSF_with_Aberration2(pixel,lamda,NA,8,a);
     Correction=conv2(image1,PSF,'same');
     Correction=abs(Correction.^2);
     Correction=255*Correction./max(max(Correction));

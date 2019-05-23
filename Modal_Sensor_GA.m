@@ -7,10 +7,8 @@ clear all
 close all
 %%
 lamda=532*10^-9;
-sin1=0.4;
-sin2=sin(asin(sin1)/2)^2;
-z=0;
-u=8*pi*z*sin1/lamda;
+NA=0.4;
+pixel=65*10^-6/20;
 Iimage=imread('1.jpg');
 image1=double(Iimage(:,:,1));
 [imgx,imgy]=size(image1);
@@ -45,7 +43,7 @@ for ii=1:1:T
             
         end
         a=a_parameter-x(i,:);
-        PSF=PSF_with_Aberration(a);
+        PSF=PSF_with_Aberration2(pixel,lamda,NA,8,a);
         chushi=conv2(image1,PSF,'same');
         chushi=abs(chushi.^2);
         chushi=chushi+40000000*randn(imgx,imgy);
@@ -64,7 +62,7 @@ for ii=1:1:T
         optxx=xx(indmax,:);
     end
     Best(ii)=fmax;
-    Bfit1(ii)=bestv; 
+    Bfit1(ii)=bestv;
     %%%%
     %Roulette selection
     % newbval=zeros(N,L);
@@ -77,7 +75,7 @@ for ii=1:1:T
     end
     % newbval(N,:)=bvalxx;%
     bval=newbval;
-   
+    
     for i=1:2:(N-1)
         cc=rand;
         if cc<pc
@@ -89,7 +87,7 @@ for ii=1:1:T
         
     end
     % bval(N,:)=bvalxx;%
-    %Locus variation 
+    %Locus variation
     for i=1:N
         for j=1:(L)
             pb=rand;
@@ -108,7 +106,7 @@ end
 optxx
 bestv
 a=a_parameter-optxx;
-PSF=PSF_with_Aberration(a);
+PSF=PSF_with_Aberration2(pixel,lamda,NA,8,a);
 zuiyou=conv2(image1,PSF,'same');
 zuiyou=abs(zuiyou.^2);
 zuiyou=zuiyou+40000000*randn(imgx,imgy);
@@ -118,9 +116,9 @@ M1=aberration(zuiyou);
 figure(1)
 imshow(zuiyou./255)
 figure(2)
-plot(Best,'LineWidth',1.5);% Optimal fitness evolution curve 
+plot(Best,'LineWidth',1.5);% Optimal fitness evolution curve
 hold on
-plot(Bfit1,'k','LineWidth',1.5);% Optimal fitness evolution curve 
+plot(Bfit1,'k','LineWidth',1.5);% Optimal fitness evolution curve
 imwrite(zuiyou./max(max(zuiyou)),'GA.bmp');
 save Best.mat Best*
 save Bfit1.mat Bfit1*

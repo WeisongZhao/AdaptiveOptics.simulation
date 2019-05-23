@@ -8,3 +8,10 @@
 
 
 ### All the methods follow the basic direction---> Estimate the Zernike polynomial coefficients based on images with some of measurements.
+
+## Attention
+This repo. is made just for self using. It may have bugs or trouble. You can contact me with a github issue.
+
+If you find it useful, please cite our work:
+
+[Liu, J., Zhao, W., Liu, C., Kong, C., Zhao, Y., Ding, X., & Tan, J. (2019). Accurate aberration correction in confocal microscopy based on modal sensorless method. Review of Scientific Instruments, 90(5), 053703.](https://aip.scitation.org/doi/abs/10.1063/1.5088102)

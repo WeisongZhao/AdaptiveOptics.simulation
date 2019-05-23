@@ -1,7 +1,21 @@
-%---------------------------------------------------------------------------------
-% 2.Source code for generating Modal Sensor +-0.7rad the second circle with random noise and GPU acceleration
-% Copyright 2017 Weisong Zhao
-%----------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------
+%   Copyright  2018 Weisong Zhao "Accurate aberration correction in confocal
+%   microscopy based on modal sensorless method"Rev. Sci. Instrum. 
+%   90, 053703 (2019); https://doi.org/10.1063/1.5088102
+%
+%    This program is free software: you can redistribute it and/or modify
+%    it under the terms of the GNU General Public License as published by
+%    the Free Software Foundation, either version 3 of the License, or
+%    (at your option) any later version.
+%
+%    This program is distributed in the hope that it will be useful,
+%    but WITHOUT ANY WARRANTY; without even the implied warranty of
+%    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%    GNU General Public License for more details.
+%
+%    You should have received a copy of the GNU General Public License
+%    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%-------------------------------------------------------------------------------------
 clc
 clear all
 close all
@@ -9,9 +23,7 @@ close all
 bias=0.7;
 lamda=532*10^-9;
 sin1=0.4;
-sin2=sin(asin(sin1)/2)^2;
-z=0;
-u=8*pi*z*sin1/lamda;
+pixel=65*10^-6/20;
 Iimage=imread('1.jpg');
 image1=double(Iimage(:,:,1));
 [a00,b00]=size(image1);
@@ -24,7 +36,7 @@ first=Result(4,:);
 a_parameter=a_parameter+first;
 %% No aberration£¬chushi: image M_clear: var
 a=zeros(1,19);
-IP1=PSF_with_Aberration(a);
+IP1=PSF_with_Aberration2(pixel,lamda,NA,8,a);
 chushi=conv2(image1,IP1,'same');
 chushi=abs(chushi.^2);
 chushi=chushi+noise;
@@ -43,7 +55,7 @@ for pp=1:1:19
     end
     %% With initial aberration, ZONG0, M0
     a=a_parameter;
-    IP1=PSF_with_Aberration(a);
+    IP1=PSF_with_Aberration2(pixel,lamda,NA,8,a);
     ZONG0=conv2(image1,IP1,'same');
     ZONG0=abs(ZONG0.^2);
     ZONG0=ZONG0+noise;
@@ -55,7 +67,7 @@ for pp=1:1:19
     %% b
     a=a_parameter;
     a(pp)=a(pp)+bias;
-    IP1=PSF_with_Aberration(a);
+    IP1=PSF_with_Aberration2(pixel,lamda,NA,8,a);
     ZONG=conv2(image1,IP1,'same');
     ZONG=abs(ZONG.^2);
     ZONG=ZONG+noise;
@@ -67,7 +79,7 @@ for pp=1:1:19
     %% -b
     a=a_parameter;
     a(pp)=a(pp)-bias;
-    IP1=PSF_with_Aberration(a);
+    IP1=PSF_with_Aberration2(pixel,lamda,NA,8,a);
     ZONG1=conv2(image1,IP1,'same');
     ZONG1=abs(ZONG1.^2);
     ZONG1=ZONG1+noise;

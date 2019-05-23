@@ -10,9 +10,7 @@ rate=50;
 iterations=300;
 lamda=532*10^-9;
 sin1=0.4;
-sin2=sin(asin(sin1)/2)^2;
-z=0;
-u=8*pi*z*sin1/lamda;
+pixel=65*10^-6/20;
 Iimage=imread('1.jpg');
 image1=double(Iimage(:,:,1));
 [a01,b01]=size(image1);
@@ -24,7 +22,7 @@ a_parameter(1)=0;
 a2=a_parameter.^2;
 suma=sqrt(sum(a2));
 %% No aberration£¬chushi: image M_clear: var
-PSF=PSF_with_Aberration(a);
+PSF=PSF_with_Aberration2(pixel,lamda,NA,8,a);
 initial=conv2(image1,PSF,'same');
 initial=abs(initial.^2);
 initial=initial+noise;
@@ -40,7 +38,7 @@ for iteration=1:iterations
     %% b
     a=a_parameter;
     a=a+bias;
-    PSF=PSF_with_Aberration(a);
+    PSF=PSF_with_Aberration2(pixel,lamda,NA,8,a);
     Total=conv2(image1,PSF,'same');
     Total=abs(Total.^2);
     % ZONG=255*ZONG./max(max(ZONG));
@@ -50,7 +48,7 @@ for iteration=1:iterations
     %% -b
     a=a_parameter;
     a=a-bias;
-    PSF=PSF_with_Aberration(a);
+    PSF=PSF_with_Aberration2(pixel,lamda,NA,8,a);
     Total1=conv2(image1,PSF,'same');
     Total1=abs(Total1.^2);
     % ZONG1=255*ZONG1./max(max(ZONG1));
@@ -60,7 +58,7 @@ for iteration=1:iterations
     %% Save Mat
     a_parameter=a_parameter+bias*rate*(M21-M11);
     a=a_parameter;
-    PSF=PSF_with_Aberration(a);
+    PSF=PSF_with_Aberration2(pixel,lamda,NA,8,a);
     Total2=conv2(image1,PSF,'same');
     Total2=abs(Total2.^2);
     Total2=255*Total2./max(max(Total2));
