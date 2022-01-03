@@ -9,6 +9,16 @@
 
 ### All the methods follow the basic direction---> Estimate the Zernike polynomial coefficients based on images with some of measurements.
 
+A comparison of different metrics for the Modal sensor (the steeper the curve, the better the metric).
+- M1: Variance (aberration.m);
+- M2: Sharpness (aberration2.m);
+- M3: Gradient (aberration3.m);
+- M4: Summation (aberration4.m);.
+
+<p>
+<img src='./img/Comparison of different metrics.png' align="right" width=400>
+</p>
+
 ## Attention
 This repo. is made just for self using. It may have bugs or trouble. You can contact me with a github issue.
 
