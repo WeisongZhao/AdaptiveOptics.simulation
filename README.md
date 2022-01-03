@@ -11,16 +11,16 @@
 
 
 ### All the methods follow the basic direction---> Estimate the Zernike polynomial coefficients based on images with some of measurements.
-<br><br>
+
 <p>
 <img src='img/Comparison of different metrics.png' align="right" width=400>
 </p>
-<br>
+
 A comparison of different metrics (the steeper the curve, the better the metric).
 - M1: Variance (`aberration.m`);
 - M2: Sharpness (`aberration2.m`);
 - M3: Gradient (`aberration3.m`);
-- M4: Summation (`aberration4.m`);.
+- M4: Summation (`aberration4.m`).
 <br><br><br><br><br><br><br><br><br>
 
 
