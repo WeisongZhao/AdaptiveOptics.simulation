@@ -16,7 +16,7 @@
 <img src='img/Comparison of different metrics.png' align="right" width=400>
 </p>
 
-A comparison of different metrics for the Modal sensor (the steeper the curve, the better the metric).
+A comparison of different metrics (the steeper the curve, the better the metric).
 - M1: Variance (`aberration.m`);
 - M2: Sharpness (`aberration2.m`);
 - M3: Gradient (`aberration3.m`);
