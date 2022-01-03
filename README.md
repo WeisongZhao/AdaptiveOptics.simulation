@@ -6,6 +6,9 @@
 3. SPGD (Stochastic Parallel Gradient  Descent). **250+measurements**
 4. Optimal Modal method. **150+measurements**
 
+<p>
+<img src='./img/Comparison of different metrics.png' align="right" width=400>
+</p>
 
 ### All the methods follow the basic direction---> Estimate the Zernike polynomial coefficients based on images with some of measurements.
 
@@ -15,9 +18,7 @@ A comparison of different metrics for the Modal sensor (the steeper the curve, t
 - M3: Gradient (aberration3.m);
 - M4: Summation (aberration4.m);.
 <br><br><br><br><br>
-<p>
-<img src='./img/Comparison of different metrics.png' align="right" width=400>
-</p>
+
 
 ## Attention
 This repo. is made just for self using. It may have bugs or trouble. You can contact me with a github issue.
