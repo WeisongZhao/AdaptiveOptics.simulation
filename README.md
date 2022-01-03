@@ -6,8 +6,10 @@
 3. SPGD (Stochastic Parallel Gradient  Descent). **250+measurements**
 4. Optimal Modal method. **150+measurements**
 
+<br><br><br><br>
+
 <p>
-<img src='./img/Comparison of different metrics.png' align="right" width=400>
+<img src='img/Comparison of different metrics.png' align="right" width=400>
 </p>
 
 ### All the methods follow the basic direction---> Estimate the Zernike polynomial coefficients based on images with some of measurements.
