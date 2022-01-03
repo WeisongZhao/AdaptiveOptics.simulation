@@ -15,7 +15,7 @@
 <p>
 <img src='img/Comparison of different metrics.png' align="right" width=400>
 </p>
-
+<br>
 A comparison of different metrics (the steeper the curve, the better the metric).
 - M1: Variance (`aberration.m`);
 - M2: Sharpness (`aberration2.m`);
